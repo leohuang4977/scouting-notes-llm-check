@@ -137,9 +137,11 @@ The second question is a demonstration of the method. The simulated coders are b
 
 The keyword list was written from the dev notes by the same author as the templates, so on familiar wording it is close to perfect. The comparison that matters is on test notes with wording the dev notes never use, and that comparison decides whether the keyword list is preferred.
 
-With a club's real notes there are no true codes, so a senior evaluator would read a sample of the disagreements and decide.
+With real notes there are no true codes, so a senior evaluator would read a sample of the disagreements and decide.
 
 ## Reading the results
+
+Results from a qwen3:8b run are in [outputs/results.md](outputs/results.md), with the figure in `outputs/figures/`.
 
 The notes are synthetic, so the numbers show how the method works and how I read agreement. They are not a finding about scouts or scouting reports. Three more limits matter:
 
@@ -147,19 +149,19 @@ The notes are synthetic, so the numbers show how the method works and how I read
 - The human coders are simulated. Their slip rates and habits were chosen by Claude when building the sample, not measured.
 - The model prompt was written from the codebook and not tuned, because no model was run while the code was being built.
 
-## What I would do with a club's real notes
+## Using this with real notes
 
 - **Write the codebook with the people who write the notes.** Every scouting department uses words like "projects" or "fringy" in its own way. The rules for hard cases matter more than the field list.
 - **Measure people first.** Have two or three staff code a few hundred notes blind. Their agreement with each other is the ceiling, and any field where people cannot agree needs a better definition before a model sees it.
 - **Split by time, not at random.** Tune on older seasons and test on the newest one, so the check also catches changes in how scouts write.
 - **Write the decision rule down and commit it before running the model,** as in PLAN.md here.
-- **Keep the model local.** With Ollama the notes never leave the club's machines, and the manifest pins the exact model weights used.
+- **Keep the model local.** With Ollama the notes never leave the organization's machines, and the manifest pins the exact model weights used.
 - **Read the disagreements.** Real notes have no answer key, so a senior evaluator would read a sample of the notes where the model and the people disagree and say who is right. That replaces the true codes used here.
 - **Recheck every season.** New scouts and new terms change the language, and agreement can drift.
 
 ## How this was built
 
-Claude (Anthropic) designed and wrote all of this repository: the pipeline, the synthetic-note generator, the keyword list, the simulated coders and this README. Leo chose to rebuild his dissertation pipeline on synthetic scouting notes. [Leo: add what you reviewed or changed.]
+Claude (Anthropic) designed and wrote all of this repository: the pipeline, the synthetic-note generator, the keyword list, the simulated coders and this README. Leo chose to rebuild his dissertation pipeline on synthetic scouting notes, ran the model on his own machine, and committed the plan before the run.
 
 ## License
 
