@@ -1,0 +1,27 @@
+{
+  "label": "MODEL",
+  "note": "",
+  "model": "qwen3:8b",
+  "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+  "ollama_version": "0.35.1",
+  "options": {
+    "temperature": 0,
+    "seed": 20261122,
+    "num_ctx": 4096
+  },
+  "thinking": "think=false sent (model supports thinking; turned off)",
+  "prompt_hash": "e289bf7c5709",
+  "config_id": "c8433d729a8b",
+  "n_notes": 600,
+  "n_coded": 600,
+  "n_from_cache": 0,
+  "n_failed": 0,
+  "failed": {},
+  "started_utc": "2026-11-22T07:25:03+00:00",
+  "finished_utc": "2026-11-22T07:38:37+00:00",
+  "new_calls_this_session": 600,
+  "median_seconds_per_call": 1.22,
+  "total_model_seconds": 813.4,
+  "max_prompt_tokens": 981,
+  "context_warning": ""
+}
