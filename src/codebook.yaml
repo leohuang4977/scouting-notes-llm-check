@@ -1,0 +1,122 @@
+# Codebook for short amateur scouting notes.
+#
+# Every coder reads this file: the simulated human coders, the keyword
+# list (for the allowed values), and the language model (its prompt is
+# built from the definitions and rules below). Changing a rule here
+# changes the model prompt, and so the prompt hash in the run manifest.
+#
+# type: nominal  = categories with no order
+#       ordinal  = ordered categories; the "not mentioned" value sits off the scale
+#       binary   = yes or no
+# scale: for ordinal fields, the values in order from low to high.
+#        Values not in the scale (not_mentioned, not_stated) are off the scale.
+#
+# Some rule examples reuse wording from the notes ("what you see is what you
+# get", "no concerns"). That helps every coder on those sentences. Rules exist
+# to settle hard cases, so this is kept, and the README says so.
+
+version: 1
+
+fields:
+  role:
+    type: nominal
+    values: [starter, reliever, position_player]
+    definition: >
+      The role the note describes the player in.
+    rules:
+      - Pitchers are starter or reliever. Everyone else is position_player.
+      - If the scout states a projected role, code that role, even when the
+        player is used differently today.
+      - If no projected role is stated, code how the player is used now.
+      - A two-way player is coded by the role the scout prefers.
+
+  velo_or_power:
+    type: ordinal
+    values: [below_average, average, plus, not_mentioned]
+    scale: [below_average, average, plus]
+    definition: >
+      For pitchers, the fastball velocity. For position players, raw power.
+    rules:
+      - Pitchers are coded by where the fastball sits, not its peak.
+        Sits below 88 mph is below_average, 88 to 91 is average, 92 or more is plus.
+      - Words map the same way for both. Fringy, light, below-average, 40 or 45
+        grade is below_average. Average, solid-average, 50 grade is average.
+        Above-average, plus, plus-plus, 55 grade or higher is plus.
+      - For position players, if the note gives both raw power and in-game power,
+        code raw power.
+      - Code not_mentioned when the note says nothing about velocity or power.
+
+  command_or_approach:
+    type: ordinal
+    values: [concern, neutral, strength, not_mentioned]
+    scale: [concern, neutral, strength]
+    definition: >
+      For pitchers, command and control. For position players, plate approach
+      and swing decisions.
+    rules:
+      - concern means the scout names a problem (walks, misses the zone,
+        chases, free swinger, poor location within the zone).
+      - neutral means the scout calls it adequate, average, or says there are
+        no concerns. The absence of a problem is neutral, not a strength.
+      - strength means the scout praises it (plus command, advanced feel,
+        patient, rarely chases, controls the zone).
+      - Code not_mentioned when the note says nothing about it.
+
+  makeup:
+    type: nominal
+    values: [positive, negative, not_mentioned]
+    definition: >
+      The scout's evaluation of character, work ethic, competitiveness and
+      coachability.
+    rules:
+      - Code positive or negative only when the scout evaluates makeup.
+      - A plain description of personality with no judgment (quiet, keeps to
+        himself) is not_mentioned.
+      - Reports from coaches or teammates count as the scout's evaluation when
+        the scout passes them on without disputing them.
+
+  # Simulation note (a YAML comment, so not part of the model prompt): the three
+  # simulated human coders share a planted habit of missing hedged health
+  # mentions, and their misses are correlated. On those sentences the human
+  # consensus is often "no" while the true code under the rule below is "yes".
+  # PLAN.md declares this before any model run.
+  health_flag:
+    type: binary
+    values: ["yes", "no"]
+    definition: >
+      Whether the note raises any injury or health question.
+    rules:
+      - Code yes for any injury, surgery, soreness, missed time for health,
+        or a medical question, including hedged or unconfirmed mentions.
+      - Code no when health is not mentioned or is mentioned only to say
+        there is no problem (clean medicals, no injury history).
+
+  projection:
+    type: ordinal
+    values: [limited, some, high, not_stated]
+    scale: [limited, some, high]
+    definition: >
+      How much physical or skill growth the scout expects.
+    rules:
+      - limited means little growth left (maxed out, filled out, older for the
+        class, what you see is what you get).
+      - some means a moderate amount of room or a little projection left.
+      - high means a lot of room (very projectable, lots of room to fill,
+        young for the class with a lean frame).
+      - Code not_stated when the note says nothing about growth. A future role
+        ("projects as a reliever") is a role statement, not projection.
+
+  overall_tone:
+    type: ordinal
+    values: [negative, mixed, positive]
+    scale: [negative, mixed, positive]
+    definition: >
+      The scout's overall lean on the player.
+    rules:
+      - If the note ends with a judgment, code that judgment. A recommendation
+        to keep following or push the player is positive. A recommendation to
+        pass is negative. A judgment that balances good and bad, or defers the
+        decision, is mixed.
+      - With no closing judgment, weigh the evaluations. Only favorable points
+        is positive, only unfavorable points is negative, and clear points on
+        both sides is mixed.

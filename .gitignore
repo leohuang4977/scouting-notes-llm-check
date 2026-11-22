@@ -1,0 +1,7 @@
+cache/
+.venv/
+outputs/llm_raw/
+outputs_mock/
+outputs_speedcheck/
+__pycache__/
+.pytest_cache/
