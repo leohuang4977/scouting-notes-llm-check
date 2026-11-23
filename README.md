@@ -161,7 +161,7 @@ The notes are synthetic, so the numbers show how the method works and how I read
 
 ## How this was built
 
-Claude (Anthropic) designed and wrote all of this repository: the pipeline, the synthetic-note generator, the keyword list, the simulated coders and this README. Leo chose to rebuild his dissertation pipeline on synthetic scouting notes, ran the model on his own machine, and committed the plan before the run.
+Claude (Anthropic) wrote the pipeline and the synthetic-note generator. I rebuilt my dissertation pipeline on synthetic scouting notes, ran the model on my own machine, and committed the plan before the run.
 
 ## License
 
